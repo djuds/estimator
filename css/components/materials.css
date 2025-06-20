@@ -1,0 +1,106 @@
+/* Materials and Subtasks Styles */
+
+.materials-section {
+  margin-top: 15px;
+  border-top: 1px dashed #ddd;
+  padding-top: 15px;
+}
+
+.materials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.materials-toggle {
+  background-color: transparent;
+  color: #007bff;
+  border: none;
+  cursor: pointer;
+  padding: 5px 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.materials-toggle:hover {
+  color: #0056b3;
+  background-color: transparent;
+}
+
+.toggle-icon {
+  margin-right: 5px;
+  font-size: 10px;
+}
+
+.materials-cost {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 16px;
+}
+
+.materials-content {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 15px;
+  margin-top: 10px;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.materials-group,
+.subtasks-group {
+  margin-bottom: 20px;
+}
+
+.materials-group h5,
+.subtasks-group h5 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: #505050;
+  font-size: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+.materials-table,
+.subtasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.materials-table th,
+.subtasks-table th,
+.materials-table td,
+.subtasks-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.materials-table th,
+.subtasks-table th {
+  background-color: #f0f0f0;
+  font-weight: 600;
+}
+
+.materials-table tr:last-child td,
+.subtasks-table tr:last-child td {
+  border-bottom: none;
+}
+
+.materials-summary {
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+  text-align: right;
+  font-size: 15px;
+}
