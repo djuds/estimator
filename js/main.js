@@ -110,6 +110,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 newLocation.addAction();
             }, 100);
+            
+            return newLocation; // Return the location for use in loading
         },
         
         removeLocation: function(locationId) {
@@ -286,15 +288,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             // Load global costs
-            document.getElementById('permitFees').value = estimate.permitFees;
-            document.getElementById('equipmentCosts').value = estimate.equipmentCosts;
-            document.getElementById('overheadCosts').value = estimate.overheadCosts;
-            document.getElementById('contingencyPercent').value = estimate.contingencyPercent;
+            document.getElementById('permitFees').value = estimate.permitFees || 0;
+            document.getElementById('equipmentCosts').value = estimate.equipmentCosts || 0;
+            document.getElementById('overheadCosts').value = estimate.overheadCosts || 0;
+            document.getElementById('contingencyPercent').value = estimate.contingencyPercent || 10;
             
-            // Remove the default first location
+            // Remove the default first location that was created by newEstimate()
             if (this.locations.length > 0) {
                 this.locations[0].remove();
                 this.locations = [];
+                this.nextLocationId = 1;
             }
             
             // Load locations and actions
@@ -306,35 +309,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     location.render();
                     
                     // Set location name
-                    document.getElementById(`locationName-${location.id}`).value = locationData.name;
-                    
-                    // Create actions
-                    if (locationData.actions && locationData.actions.length > 0) {
-                        locationData.actions.forEach(actionData => {
-                            const action = new Action(location.id, location.nextActionId++);
-                            location.actions.push(action);
-                            action.render();
-                            
-                            // Set action data
-                            document.getElementById(`actionName-${location.id}-${action.id}`).value = actionData.name;
-                            
-                            if (actionData.description) {
-                                document.getElementById(`description-${location.id}-${action.id}`).value = actionData.description;
-                            }
-                            
-                            document.getElementById(`quantity-${location.id}-${action.id}`).value = actionData.quantity;
-                            document.getElementById(`unit-${location.id}-${action.id}`).value = actionData.unit;
-                            document.getElementById(`unitPrice-${location.id}-${action.id}`).value = actionData.unitPrice;
-                            
-                            // Update total price
-                            action.updateTotalPrice();
-                        });
-                    }
+                    setTimeout(() => {
+                        document.getElementById(`locationName-${location.id}`).value = locationData.name;
+                        
+                        // Create actions
+                        if (locationData.actions && locationData.actions.length > 0) {
+                            locationData.actions.forEach(actionData => {
+                                const action = new Action(location.id, location.nextActionId++);
+                                location.actions.push(action);
+                                action.render();
+                                
+                                // Use setTimeout to ensure DOM elements are ready before loading data
+                                setTimeout(() => {
+                                    action.loadData(actionData);
+                                }, 50);
+                            });
+                        }
+                    }, 50);
                 });
             }
             
-            // Calculate and show results
-            calculateCost(this.locations);
+            // Calculate and show results after a short delay to ensure all data is loaded
+            setTimeout(() => {
+                calculateCost(this.locations);
+            }, 200);
             
             showError(`Estimate "${estimate.name}" loaded successfully.`, 'success');
         },
@@ -364,12 +362,14 @@ document.addEventListener('DOMContentLoaded', () => {
         
         getEstimateData: function() {
             // Calculate first to ensure data is up to date
-            let totalCost = 0;
+            let totalLaborCost = 0;
+            let totalMaterialCost = 0;
             const locationDetails = [];
             
             this.locations.forEach(location => {
                 const locationData = location.getData();
-                totalCost += locationData.totalCost;
+                totalLaborCost += locationData.totalLaborCost;
+                totalMaterialCost += locationData.totalMaterialCost;
                 locationDetails.push(locationData);
             });
             
@@ -385,7 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const contingencyPercent = parseFloat(document.getElementById('contingencyPercent').value) || 0;
             
             // Calculate totals
-            const subtotal = totalCost + permitFees + equipmentCosts + overheadCosts;
+            const directCost = totalLaborCost + totalMaterialCost;
+            const subtotal = directCost + permitFees + equipmentCosts + overheadCosts;
             const contingency = (subtotal * contingencyPercent) / 100;
             const grandTotal = subtotal + contingency;
             
@@ -397,7 +398,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 equipmentCosts,
                 overheadCosts,
                 contingencyPercent,
-                directCost: totalCost,
+                laborCost: totalLaborCost,
+                materialCost: totalMaterialCost,
+                directCost: directCost,
                 subtotal,
                 contingency,
                 grandTotal,

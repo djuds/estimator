@@ -49,12 +49,64 @@ class Location {
         const newAction = new Action(this.id, actionId);
         this.actions.push(newAction);
         newAction.render();
+        return newAction;
+    }
+    
+    /**
+     * Add an action with a specific ID (used when loading saved estimates)
+     * @param {number} actionId - The action ID to use
+     * @return {Action} The created action
+     */
+    addActionWithId(actionId) {
+        // Ensure nextActionId is always higher than any existing action ID
+        this.nextActionId = Math.max(this.nextActionId, actionId + 1);
+        
+        const newAction = new Action(this.id, actionId);
+        this.actions.push(newAction);
+        newAction.render();
+        return newAction;
     }
     
     removeAction(actionId) {
         const index = this.actions.findIndex(action => action.id === actionId);
         if (index !== -1) {
             this.actions.splice(index, 1);
+        }
+    }
+    
+    /**
+     * Load saved data into this location
+     * @param {Object} locationData - The saved location data
+     */
+    loadData(locationData) {
+        // Set location name
+        const locationNameInput = document.getElementById(`locationName-${this.id}`);
+        if (locationNameInput && locationData.name) {
+            locationNameInput.value = locationData.name;
+        }
+        
+        // Clear existing actions
+        this.actions.forEach(action => {
+            if (action.autocomplete) {
+                action.autocomplete.destroy();
+            }
+            if (action.element) {
+                action.element.remove();
+            }
+        });
+        this.actions = [];
+        this.nextActionId = 1;
+        
+        // Load actions
+        if (locationData.actions && Array.isArray(locationData.actions)) {
+            locationData.actions.forEach(actionData => {
+                const action = this.addActionWithId(actionData.id || this.nextActionId);
+                
+                // Use setTimeout to ensure the action is fully rendered before loading data
+                setTimeout(() => {
+                    action.loadData(actionData);
+                }, 0);
+            });
         }
     }
     
