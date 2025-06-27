@@ -1,46 +1,26 @@
-/* Autocomplete Component Styles */
-
-.autocomplete-dropdown {
-  position: absolute;
+/* Main calculator container */
+#calculator {
+  width: 80%;
+  max-width: 1200px;
+  margin: 40px auto;
   background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  max-height: 300px;
-  overflow-y: auto;
-  z-index: 1000;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.autocomplete-category {
-  padding: 8px 10px;
-  font-weight: 600;
-  background-color: #f5f5f5;
-  color: #333;
-  border-bottom: 1px solid #e0e0e0;
-  font-size: 14px;
+.global-costs {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
 }
 
-.autocomplete-item {
-  padding: 8px 15px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+#calculate-btn {
+  margin: 20px 0;
+  width: 100%;
+  padding: 15px;
+  font-weight: bold;
+  font-size: 18px;
 }
-
-.autocomplete-item:hover {
-  background-color: #f0f7ff;
-}
-
-.autocomplete-item.selected {
-  background-color: #e3f2fd;
-}
-
-.autocomplete-item strong {
-  font-weight: 600;
-  color: #007bff;
-}
-
-.form-group.has-autocomplete {
-  position: relative;
-}
-
-/* Add the autocomplete CSS import to styles.css */

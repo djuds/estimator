@@ -535,6 +535,85 @@ const ActionsDatabase = {
       }
     ]
   },
+  
+  //roof activities
+  install_roof: {
+    name: "Install Roof",
+    actions: [
+      {
+        id: "install_class_a_roof",
+        name: "Install Class A Roof",
+        defaultUnit: "Sq. Ft", // Represents the total square footage of the roof area
+        materials: [
+          {
+            name: "Class A Roofing Shingles/Tiles",
+            unit: "Bundles",
+            calculation: "Math.ceil(quantity / 100 * 3 * 1.10)", // 3 bundles per 100 sq ft, plus 10% overage for waste, hips, ridges, etc.
+            costPerUnit: 50.00 // Example cost per bundle for Class A material
+          },
+          {
+            name: "Roofing Underlayment (Synthetic or Felt)",
+            unit: "Rolls",
+            calculation: "Math.ceil(quantity / 1000 * 1.05)", // Standard roll covers approx 1000 sq ft, plus 5% overage
+            costPerUnit: 100.00
+          },
+          {
+            name: "Roofing Nails (Galvanized)",
+            unit: "Lbs",
+            calculation: "Math.ceil(quantity / 100 * 0.2)", // Approx 0.2 lbs of nails per 100 sq ft
+            costPerUnit: 3.00
+          },
+          {
+            name: "Drip Edge",
+            unit: "Linear Ft",
+            // Assumes a square roof for perimeter calculation: 4 * sqrt(area)
+            calculation: "Math.ceil((4 * Math.sqrt(quantity)) * 1.05)", // Perimeter with 5% overage
+            costPerUnit: 2.00
+          },
+          {
+            name: "Coping Material",
+            unit: "Linear Ft",
+            // Assumes a square roof for perimeter calculation, used for parapet walls or roof edges
+            calculation: "Math.ceil((4 * Math.sqrt(quantity)) * 1.10)", // Perimeter with 10% overage
+            costPerUnit: 8.00 // Example cost for metal coping
+          },
+          {
+            name: "Gutter Material (Seamless Aluminum)",
+            unit: "Linear Ft",
+            // Assumes a square roof for perimeter calculation, covering all sides
+            calculation: "Math.ceil((4 * Math.sqrt(quantity)) * 1.10)", // Perimeter with 10% overage
+            costPerUnit: 6.00 // Example cost per linear foot for gutters
+          },
+          {
+            name: "Gutter Downspouts",
+            unit: "Each",
+            calculation: "Math.ceil(quantity / 1000)", // Approx. one downspout per 1000 sq ft of roof area
+            costPerUnit: 30.00
+          },
+          {
+            name: "Gutter Hangers/Brackets",
+            unit: "Each",
+            // One bracket every approx. 3 feet of gutter, plus 5% overage
+            calculation: "Math.ceil((4 * Math.sqrt(quantity)) / 3 * 1.05)",
+            costPerUnit: 2.50
+          },
+          {
+            name: "Roof Vents (e.g., Ridge Vent or Box Vents)",
+            unit: "Each",
+            calculation: "Math.ceil(quantity / 1500)", // Approx. one vent per 1500 sq ft (can vary by type/code)
+            costPerUnit: 25.00
+          },
+          {
+            name: "Roofing Sealants/Caulking (Roofing Grade)",
+            unit: "Tubes",
+            calculation: "Math.ceil(quantity / 500)", // Approx. 1 tube per 500 sq ft for flashing, penetrations, etc.
+            costPerUnit: 8.00
+          }
+        ],
+        subTasks: []
+      }
+    ]
+  },
 
 
   // Get a flattened list of all actions
