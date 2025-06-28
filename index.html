@@ -7,18 +7,106 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="calculator">
+    <main class="main-content">
+    <div id="calculator" class="content-card">
         <h2>Construction Cost Estimator</h2>
         
-        <!-- Toolbar -->
-        <div class="toolbar">
-            <button id="new-estimate-btn" title="Start a new estimate">New Estimate</button>
-            <button id="save-estimate-btn" title="Save current estimate">Save</button>
-            <button id="load-estimate-btn" title="Load a saved estimate">Load</button>
-            <button id="export-csv-btn" title="Export as CSV">Export CSV</button>
-            <button id="export-json-btn" title="Export as JSON">Export JSON</button>
-            <button id="print-btn" title="Print estimate">Print</button>
+        <!-- App Header with Navigation -->
+<header class="app-header">
+    <div class="header-content">
+        <!-- Left side: Hamburger + Logo -->
+        <div class="header-left">
+            <!-- Hamburger Menu -->
+            <div class="hamburger-menu">
+                <button class="hamburger-btn" id="hamburger-btn">
+                    <div class="hamburger-icon">
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                        <div class="hamburger-line"></div>
+                    </div>
+                </button>
+                
+                <!-- Dropdown Menu -->
+                <div class="dropdown-menu" id="dropdown-menu">
+                    <!-- Project Actions -->
+                    <div class="dropdown-section">
+                        <button class="dropdown-item" id="new-estimate-btn">
+                            <div class="dropdown-item-icon">📄</div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">New Estimate</div>
+                                <div class="dropdown-item-desc">Start a fresh project</div>
+                            </div>
+                        </button>
+                        
+                        <button class="dropdown-item" id="save-estimate-btn">
+                            <div class="dropdown-item-icon">💾</div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Save</div>
+                                <div class="dropdown-item-desc">Save current estimate</div>
+                            </div>
+                        </button>
+                        
+                        <button class="dropdown-item" id="load-estimate-btn">
+                            <div class="dropdown-item-icon">📂</div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Load</div>
+                                <div class="dropdown-item-desc">Open saved estimate</div>
+                            </div>
+                        </button>
+                    </div>
+                    
+                    <!-- Export Options -->
+                    <div class="dropdown-section">
+                        <button class="dropdown-item" id="export-csv-btn">
+                            <div class="dropdown-item-icon">📊</div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Export CSV</div>
+                                <div class="dropdown-item-desc">Export as spreadsheet</div>
+                            </div>
+                        </button>
+                        
+                        <button class="dropdown-item" id="export-json-btn">
+                            <div class="dropdown-item-icon">🔗</div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Export JSON</div>
+                                <div class="dropdown-item-desc">Export raw data</div>
+                            </div>
+                        </button>
+                        
+                        <button class="dropdown-item" id="print-btn">
+                            <div class="dropdown-item-icon">🖨️</div>
+                            <div class="dropdown-item-content">
+                                <div class="dropdown-item-title">Print</div>
+                                <div class="dropdown-item-desc">Print estimate report</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- App Logo and Title -->
+            <div class="app-logo">
+                <div class="logo-icon">🏗️</div>
+                <div>
+                    <div class="app-title">BuildCost Pro</div>
+                    <div class="app-subtitle">Construction Estimator</div>
+                </div>
+            </div>
         </div>
+        
+        <!-- Right side: Project Status + Calculate Button -->
+        <div class="header-actions">
+            <div class="project-status">
+                <div class="status-dot"></div>
+                <span>Auto-saved</span>
+            </div>
+            
+            <button class="primary-action-btn" id="calculate-btn">
+                Calculate Estimate
+            </button>
+        </div>
+    </div>
+</header>
 
         <!-- Project Info -->
         <div class="project-info">
@@ -91,20 +179,21 @@
         </div>
     </div>
 
-    <!-- Load scripts in the correct order -->
-    <script src="js/config.js"></script>
-    <script src="js/utils/dom-helpers.js"></script>
-    <script src="js/utils/validation.js"></script>
-    <script src="js/utils/storage.js"></script>
-    <script src="js/utils/export.js"></script>
-    <script src="js/utils/calculator.js"></script>
-    <!-- Data must be loaded before components that use it -->
-    <script src="js/data/actions-database.js"></script>
-    <!-- Components should be loaded in dependency order -->
-    <script src="js/components/Autocomplete.js"></script>
-    <script src="js/components/Action.js"></script>
-    <script src="js/components/Location.js"></script>
-    <!-- Main app should be loaded last -->
-    <script src="js/main.js"></script>
+   <!-- Load scripts in the correct order -->
+	<script src="js/config.js"></script>
+	<script src="js/utils/dom-helpers.js"></script>
+	<script src="js/utils/validation.js"></script>
+	<script src="js/utils/storage.js"></script>
+	<script src="js/utils/export.js"></script>
+	<script src="js/utils/calculator.js"></script>
+	<!-- Data must be loaded before components that use it -->
+	<script src="js/data/actions-database.js"></script>
+	<!-- Components should be loaded in dependency order -->
+	<script src="js/components/Navigation.js"></script> <!-- ADD THIS -->
+	<script src="js/components/Autocomplete.js"></script>
+	<script src="js/components/Action.js"></script>
+	<script src="js/components/Location.js"></script>
+	<!-- Main app should be loaded last -->
+	<script src="js/main.js"></script>
 </body>
 </html>

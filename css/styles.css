@@ -6,6 +6,8 @@
 @import 'components/autocomplete.css';
 @import 'components/modal.css';
 @import 'components/materials.css';
+@import 'components/navigation.css';
+
 
 /* Global styles */
 body {
@@ -136,14 +138,7 @@ button:hover {
 
 /* Toolbar */
 .toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-  border: 1px solid #e0e0e0;
+
 }
 
 .toolbar button {
@@ -221,8 +216,12 @@ button:hover {
   }
   
   #calculator {
-    width: 95% !important;
-    padding: 15px !important;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
   }
   
   #notification-container {
