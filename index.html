@@ -109,16 +109,70 @@
 </header>
 
         <!-- Project Info -->
-        <div class="project-info">
-            <label for="project-name">Project Name:</label>
-            <input type="text" id="project-name" placeholder="Enter project name">
-            
-            <label for="project-date">Date:</label>
-            <input type="date" id="project-date">
-            
-            <label for="project-client">Client:</label>
-            <input type="text" id="project-client" placeholder="Enter client name">
+        <!-- Improved Project Info Section -->
+<section class="project-info" role="form" aria-labelledby="project-info-heading">
+    <h2 id="project-info-heading" class="sr-only">Project Information</h2>
+    
+    <div class="form-group">
+        <label for="project-name">Project Name</label>
+        <input 
+            type="text" 
+            id="project-name" 
+            name="project-name"
+            placeholder="Enter project name..."
+            autocomplete="off"
+            maxlength="100"
+            aria-describedby="project-name-help"
+        >
+        <div id="project-name-help" class="sr-only">
+            Enter a descriptive name for your construction project
         </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="project-client">Client Name</label>
+        <input 
+            type="text" 
+            id="project-client" 
+            name="project-client"
+            placeholder="Enter client name..."
+            autocomplete="organization"
+            maxlength="100"
+            aria-describedby="project-client-help"
+        >
+        <div id="project-client-help" class="sr-only">
+            Enter the name of the client or organization for this project
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label for="project-date">Project Date</label>
+        <input 
+            type="date" 
+            id="project-date" 
+            name="project-date"
+            aria-describedby="project-date-help"
+        >
+        <div id="project-date-help" class="sr-only">
+            Select the start date or estimate date for this project
+        </div>
+    </div>
+</section>
+
+<!-- Screen reader only styles -->
+<style>
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+</style>
 
         <div id="locations">
             <button class="add-button" id="add-location-btn">Add Location</button>

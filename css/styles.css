@@ -124,16 +124,210 @@ button:hover {
   font-weight: bold;
 }
 
-/* Project info section */
+/* Improved Project Info Section */
 .project-info {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 15px;
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: #f0f7ff;
-  border-radius: 6px;
-  border: 1px solid #d0e1ff;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.project-info .form-group {
+  margin-bottom: 0;
+  position: relative;
+}
+
+.project-info .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.project-info input[type="text"],
+.project-info input[type="date"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #111827;
+  background-color: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+
+.project-info input[type="text"]:focus,
+.project-info input[type="date"]:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+.project-info input[type="text"]:hover,
+.project-info input[type="date"]:hover {
+  border-color: #9ca3af;
+}
+
+/* Placeholder styling */
+.project-info input[type="text"]::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+/* Date input specific styling */
+.project-info input[type="date"] {
+  color-scheme: light;
+  cursor: pointer;
+}
+
+.project-info input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.project-info input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  background-color: #f3f4f6;
+}
+
+/* Enhanced visual hierarchy */
+.project-info .form-group:first-child label {
+  color: #1f2937;
+}
+
+.project-info .form-group:first-child input {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* Icon indicators for each field type */
+.project-info .form-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 0 8px 8px 0;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.project-info .form-group:nth-child(2)::before {
+  background: linear-gradient(135deg, #10b981, #047857);
+}
+
+.project-info .form-group:nth-child(3)::before {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .project-info {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .project-info input[type="text"],
+  .project-info input[type="date"] {
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .project-info .form-group label {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-info {
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+  
+  .project-info input[type="text"],
+  .project-info input[type="date"] {
+    padding: 0.75rem;
+  }
+}
+
+/* Large screen optimization */
+@media (min-width: 1200px) {
+  .project-info {
+    grid-template-columns: 2fr 1.5fr 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .project-info {
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 1rem;
+    break-inside: avoid;
+  }
+  
+  .project-info .form-group::before {
+    display: none;
+  }
+  
+  .project-info input {
+    border: 1px solid #999;
+    background: white;
+  }
+}
+
+/* Error states */
+.project-info input.invalid {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.project-info input.invalid:focus {
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Success states */
+.project-info input.valid {
+  border-color: #10b981;
+}
+
+/* Loading states */
+.project-info input.loading {
+  background-image: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 /* Toolbar */
