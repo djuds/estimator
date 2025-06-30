@@ -22,10 +22,29 @@ document.addEventListener('DOMContentLoaded', () => {
             // Set up toolbar button listeners
             this.setupToolbarButtons();
             
-            // Initialize components after a short delay
+            // Initialize navigation and auto-save after a short delay
             setTimeout(() => {
-                this.initializeComponents();
+                this.initializeNavigation();
+                this.initializeAutoSave();
             }, 100);
+        },
+        
+        initializeNavigation: function() {
+            try {
+                this.navigation = new Navigation();
+            } catch (error) {
+                console.warn('Failed to initialize Navigation:', error);
+            }
+        },
+        
+        initializeAutoSave: function() {
+            try {
+                if (document.querySelector('.project-status')) {
+                    this.autoSave = new AutoSaveStatus();
+                }
+            } catch (error) {
+                console.warn('Failed to initialize AutoSave:', error);
+            }
         },
         
         setupToolbarButtons: function() {
@@ -78,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
             
-            // Calculate button
+            // Calculate button (now in header)
             const calculateBtn = document.getElementById('calculate-btn');
             if (calculateBtn) {
                 calculateBtn.addEventListener('click', () => {
@@ -109,28 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
         
-        initializeComponents: function() {
-            // Initialize Navigation
-            try {
-                if (typeof Navigation !== 'undefined') {
-                    this.navigation = new Navigation();
-                } else {
-                    console.warn('Navigation class not found');
-                }
-            } catch (error) {
-                console.warn('Failed to initialize Navigation:', error);
-            }
-            
-            // Initialize AutoSave
-            try {
-                if (document.querySelector('.project-status')) {
-                    this.autoSave = new AutoSaveStatus();
-                }
-            } catch (error) {
-                console.warn('Failed to initialize AutoSave:', error);
-            }
-        },
-        
         addLocation: function() {
             const locationId = this.nextLocationId++;
             const newLocation = new Location(locationId);
@@ -142,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 newLocation.addAction();
             }, 100);
             
-            return newLocation;
+            return newLocation; // Return the location for use in loading
         },
         
         removeLocation: function(locationId) {
